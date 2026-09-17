@@ -1,0 +1,22 @@
+{
+  "name": "solopreneur-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@fontsource-variable/manrope": "^5.2.6",
+    "astro": "7.3.3",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@types/three": "^0.180.0",
+    "typescript": "^5.9.2"
+  }
+}

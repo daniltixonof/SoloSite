@@ -1,0 +1,6 @@
+---
+import Icon from './Icon.astro';import type {Case} from '../data/cases';
+interface Props { item:Case; }
+const {item}=Astro.props;
+---
+<a class="case-tile" href={`/cases/${item.slug}/`} data-category={item.category} style={`--case-color:${item.color}`}><div class="case-tile-art" aria-hidden="true"><div class="art-flow"><span class="art-node">{item.symbol}</span><span class="art-connector">→</span><span class="art-node"><Icon name="spark" size={26}/></span><span class="art-connector">→</span><span class="art-node"><Icon name="check" size={25}/></span></div></div><div class="case-tile-copy"><div class="case-tags"><span>{item.category}</span></div><h2>{item.title}</h2><p>{item.summary}</p><span class="case-link">Разобрать кейс <Icon size={18}/></span></div></a>

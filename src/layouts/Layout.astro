@@ -1,0 +1,24 @@
+---
+import '../styles/global.css';
+import '@fontsource-variable/manrope';
+import Icon from '../components/Icon.astro';
+import {site} from '../data/site';
+interface Props { title: string; description: string; breadcrumbs?:{name:string;url:string}[]; noindex?:boolean; schema?:Record<string,unknown>; }
+const {title,description,breadcrumbs=[],noindex=false,schema}=Astro.props;
+const path=Astro.url.pathname;
+const canonical=new URL(path,site.origin).href;
+const graph:Record<string,unknown>[]=[{'@type':'Organization','@id':site.origin+'/#studio',name:'SoloPreneur',url:site.origin,description:'Автоматизация бизнес-процессов, Telegram-боты, AI-ассистенты и MVP.',founder:{'@type':'Person',name:'Данил Тихонов'},sameAs:[site.telegram],areaServed:{'@type':'Country',name:'Россия'}}];
+if(breadcrumbs.length)graph.push({'@type':'BreadcrumbList',itemListElement:[{name:'Главная',url:'/'},...breadcrumbs].map((b,i)=>({'@type':'ListItem',position:i+1,name:b.name,item:new URL(b.url,site.origin).href}))});
+if(schema)graph.push(schema);
+---
+<!doctype html><html lang="ru"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="theme-color" content="#0b0c0c"/><title>{title}</title><meta name="description" content={description}/><link rel="canonical" href={canonical}/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/><meta name="robots" content={noindex?'noindex,follow':'index,follow'}/><meta property="og:type" content="website"/><meta property="og:locale" content="ru_RU"/><meta property="og:site_name" content="SoloPreneur"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical}/><script type="application/ld+json" set:html={JSON.stringify({'@context':'https://schema.org','@graph':graph}).replace(/</g,'\\u003c')}/></head><body>
+<a class="skip-link" href="#main">К содержимому</a>
+<header class="header"><div class="wrap header-inner"><a href="/" class="brand" aria-label="SoloPreneur — главная"><span class="brand-mark" aria-hidden="true">s<span>p</span></span><span>SoloPreneur<span class="brand-period" aria-hidden="true">.</span></span></a><nav class="nav" aria-label="Основная навигация" id="navigation">{[['/services/','Услуги'],['/cases/','Кейсы'],['/pricing/','Стоимость'],['/contacts/','Контакты']].map(([url,label])=><a href={url} aria-current={path.startsWith(url)?'page':undefined}>{label}</a>)}</nav><a class="header-cta" href={site.telegram} target="_blank" rel="noopener noreferrer">Обсудить проект<Icon size={17}/></a><button class="menu-toggle" aria-expanded="false" aria-controls="navigation" aria-label="Открыть меню"><span></span><span></span></button></div></header>
+<main id="main">{breadcrumbs.length>0&&<nav class="wrap breadcrumbs" aria-label="Хлебные крошки"><a href="/">Главная</a>{breadcrumbs.map((b,i)=><><span aria-hidden="true">/</span>{i===breadcrumbs.length-1?<span aria-current="page">{b.name}</span>:<a href={b.url}>{b.name}</a>}</>)}</nav>}<slot/></main>
+<footer class="footer"><div class="wrap"><div class="footer-top"><a href="/" class="brand"><span class="brand-mark" aria-hidden="true">s<span>p</span></span><span>SoloPreneur.</span></a><p>Освобождаю время<br/>для того, что двигает бизнес.</p><a class="footer-contact" href={site.telegram} target="_blank" rel="noopener noreferrer">{site.contact}<Icon size={18}/></a></div><div class="footer-bottom"><span>© {new Date().getFullYear()} SoloPreneur · Данил Тихонов</span><a href="/privacy/">Конфиденциальность</a><span>Сделано с вниманием к деталям</span></div></div></footer>
+<script>
+const button=document.querySelector<HTMLButtonElement>('.menu-toggle');
+button?.addEventListener('click',()=>{const open=button.getAttribute('aria-expanded')==='true';button.setAttribute('aria-expanded',String(!open));button.setAttribute('aria-label',open?'Открыть меню':'Закрыть меню');document.querySelector('.header')?.classList.toggle('menu-open',!open);});
+document.addEventListener('keydown',(e)=>{if(e.key==='Escape'){button?.setAttribute('aria-expanded','false');document.querySelector('.header')?.classList.remove('menu-open');}});
+</script>
+</body></html>

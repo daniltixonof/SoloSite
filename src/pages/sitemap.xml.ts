@@ -1,0 +1,2 @@
+import type {APIRoute} from 'astro';import {site,services} from '../data/site';import {cases} from '../data/cases';
+export const GET:APIRoute=()=>{const paths=['/','/services/','/cases/','/pricing/','/contacts/',...services.map(s=>`/services/${s.slug}/`),...cases.map(c=>`/cases/${c.slug}/`)];return new Response(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paths.map(path=>`<url><loc>${new URL(path,site.origin).href}</loc></url>`).join('')}</urlset>`,{headers:{'Content-Type':'application/xml; charset=utf-8'}});};

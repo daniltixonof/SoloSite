@@ -1,0 +1,12 @@
+<div class="system-scene" id="system-scene" role="group" aria-label="Трёхмерная схема: Telegram, CRM и AI связаны в единую систему автоматизации">
+ <div class="scene-fallback" aria-hidden="true"><div class="fallback-core"><span>sp</span></div><span class="fallback-link link-one"></span><span class="fallback-link link-two"></span></div>
+ <div class="scene-canvas" aria-hidden="true"></div>
+ <span class="scene-label label-telegram"><span class="node-symbol">↗</span>Telegram</span><span class="scene-label label-crm"><span class="node-symbol">⊞</span>CRM</span><span class="scene-label label-ai"><span class="node-symbol">✧</span>AI</span>
+ <span class="scene-caption"><i></i>Ваши процессы. Одна система.</span>
+ <button class="scene-pause" aria-label="Приостановить 3D-анимацию" aria-pressed="false" hidden>Ⅱ</button>
+</div>
+<script>
+import { initScene } from '../scripts/scene';
+const host=document.querySelector<HTMLElement>('#system-scene');
+if(host){const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();const start=()=>initScene(host);if('requestIdleCallback' in window)window.requestIdleCallback(start,{timeout:1800});else setTimeout(start,300);}},{rootMargin:'100px'});observer.observe(host);}
+</script>
