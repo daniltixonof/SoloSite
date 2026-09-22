@@ -1,11 +1,143 @@
 ---
-import Layout from '../layouts/Layout.astro';import Icon from '../components/Icon.astro';import SystemScene from '../components/SystemScene.astro';import CTA from '../components/CTA.astro';import FAQ from '../components/FAQ.astro';import {services,generalFaq,site} from '../data/site';
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import ProcessScheme from '../components/ProcessScheme.astro';
+import CTA from '../components/CTA.astro';
+import FAQ from '../components/FAQ.astro';
+import TgLink from '../components/TgLink.astro';
+import Audience from '../components/Audience.astro';
+import Stats from '../components/Stats.astro';
+import Testimonials from '../components/Testimonials.astro';
+import {services, generalFaq} from '../data/site';
+import {contact} from '../data/config';
+import {cases} from '../data/cases';
+
+const featured = ['parent-school','tournament-platform','meeting-to-tasks']
+  .map(slug => cases.find(c => c.slug === slug))
+  .filter((c): c is NonNullable<typeof c> => Boolean(c));
+
+const stack = ['n8n','Telegram','Claude','OpenAI','YandexGPT','GigaChat','Supabase','Google Sheets','CRM и любой API'];
+
+const process = [
+  ['Разбираю процесс','Показываете, как работа идёт сейчас. Считаю, сколько времени уходит и на чём теряется.'],
+  ['Фиксирую план и смету','Состав, этапы и стоимость на бумаге. Вы видите, что получите на каждом шаге.'],
+  ['Собираю и проверяю','Показываю промежуточный результат. Проверяю не только рабочие сценарии, но и сбои.'],
+  ['Передаю управление','Исходники, доступы и инструкции — ваши. Дальше поддерживаю или передаю вашей команде.']
+];
 ---
-<Layout title="Автоматизация бизнеса, Telegram-боты и AI — SoloPreneur" description="Автоматизация процессов, разработка Telegram-ботов, AI-ассистентов и Mini Apps. Кейсы, понятные этапы и стоимость. Работа напрямую с Данилом Тихоновым.">
-<section class="hero wrap"><div class="hero-copy"><span class="eyebrow hero-eyebrow"><span class="tiny-cross">✳</span> Автоматизация для бизнеса</span><h1>Рутина —<br/>системе.<br/><span class="hero-last">Рост — вам.</span></h1><p>Соединяю ботов, AI и ваши сервисы,<br class="desktop"/> чтобы работа двигалась без ручного контроля<br class="desktop"/> на каждом шаге.</p><div class="hero-actions"><a class="button" href={site.telegram} target="_blank" rel="noopener noreferrer">Обсудить задачу <Icon size={19}/></a><a class="text-link" href="/cases/">Смотреть кейсы <span>↓</span></a></div></div><div class="hero-visual"><SystemScene/></div><div class="hero-bottom"><span>От одного процесса<br/>до целого продукта</span><span>Проектирование · Разработка · Запуск</span><a href="#services" aria-label="Перейти к услугам">↓</a></div></section>
-<div class="integration-strip"><div class="wrap"><span>Работаю с вашим стеком</span><div class="integration-names"><span>✣ n8n</span><span>◈ Telegram</span><span>OpenAI</span><span>Notion</span><span>Google Sheets</span><span>CRM & API</span></div></div></div>
-<section class="section wrap" id="services"><div class="section-heading"><div><span class="eyebrow">Четыре направления</span><h2>Меньше действий.<br/>Больше движения.</h2></div><p>Разбираюсь в вашей задаче и собираю<br class="desktop"/> решение, которое вписывается<br class="desktop"/> в уже работающий бизнес.</p></div><div class="service-grid">{services.map(s=><a class="service-card" href={`/services/${s.slug}/`}><div class="service-card-top"><span class="service-icon"><Icon name={s.icon} size={29}/></span><Icon size={24}/></div><h3>{s.short==='Автоматизация'?'Автоматизация и интеграции':s.short}</h3><p>{s.tag}. {s.slug==='automation-integrations'?'Связь между сервисами, данными и людьми.':s.slug==='chatbots-funnels'?'От первого касания до оплаты и доступа.':s.slug==='ai-assistants-rag'?'Поддержка и поиск по документам компании.':'Рабочая версия вашей идеи для первых пользователей.'}</p><div class="service-card-bottom"><span>от {s.price} ₽</span><span>{s.time}</span></div></a>)}</div></section>
-<section class="section case-section wrap"><div class="section-heading"><div><span class="eyebrow">Из практики</span><h2>Задачи разные.<br/>Подход системный.</h2></div><a class="text-link" href="/cases/">Все кейсы <Icon size={18}/></a></div><div class="featured-cases"><a class="feature-case feature-large" href="/cases/meeting-to-tasks/"><div class="case-diagram meeting-diagram" aria-hidden="true"><div class="mini-window"><div class="window-top"><span>Встреча завершена</span><span>↗</span></div><div class="waveform">{Array.from({length:30},(_,i)=><i style={`--height:${[14,25,40,22,54,68,36,19,49,27][i%10]}px`}/>)}</div><span class="window-sub">Запись → Транскрипция → Задачи</span></div><div class="task-window"><span class="task-label">Notion / Задачи встречи</span><p><i>✓</i> Согласовать следующий этап</p><p><i>✓</i> Подготовить материалы</p><p><i>✓</i> Назначить ответственных</p></div><span class="diagram-caption">Схема решения</span></div><div class="case-info"><div class="case-tags"><span>Автоматизация</span><span>AI</span></div><h3>Встреча закончилась.<br/>Задачи уже в Notion.</h3><p>Запись Zoom превращается в расшифровку, резюме и список действий.</p><span class="case-link">Смотреть проект <Icon size={19}/></span></div></a><a class="feature-case" href="/cases/spain-tax-assistant/"><div class="case-diagram rag-diagram" aria-hidden="true"><div class="document-stack"><span>§</span><i></i><i></i><i></i></div><div class="answer-bubble"><span class="answer-star">✧</span><span>Ответ найден<br/><small>Источник в базе знаний</small></span></div><span class="diagram-caption">Схема решения</span></div><div class="case-info"><div class="case-tags"><span>AI-ассистент</span><span>RAG</span></div><h3>Сложные документы.<br/>Понятный диалог.</h3><p>Помощник по налоговому законодательству Испании с поиском по базе знаний.</p><span class="case-link">Смотреть проект <Icon size={19}/></span></div></a></div></section>
-<section class="section approach-section"><div class="wrap approach-grid"><div><span class="eyebrow">Лично отвечаю за результат</span><h2>Один контакт.<br/>Весь путь<br/>до запуска.</h2><p class="approach-intro">Я Данил, основатель SoloPreneur. Проектирую решения на стыке бизнеса, AI и разработки. Начинаю с процесса и довожу до работающей системы.</p><a class="text-link" href="/contacts/">Познакомимся <Icon size={18}/></a></div><div class="process-list">{[['Разбираю задачу','Показываете, как устроена работа сейчас. Вместе определяем, что стоит автоматизировать в первую очередь.'],['Фиксирую план','Согласуем состав решения, этапы и стоимость. Вы понимаете, что получите на каждом шаге.'],['Собираю и проверяю','Разрабатываю, показываю промежуточный результат, проверяю рабочие и ошибочные сценарии.'],['Передаю управление','Исходники, доступы и инструкции остаются у вас. Обсуждаем поддержку и дальнейшее развитие.']].map(([title,text],i)=><div class="process-item"><span class="process-number">0{i+1}</span><div><h3>{title}</h3><p>{text}</p></div></div>)}</div></div></section>
-<section class="section wrap faq-section"><div><span class="eyebrow">До первого сообщения</span><h2>По делу.<br/>И заранее.</h2><p>Что обычно спрашивают<br/>перед началом работы.</p></div><FAQ items={generalFaq}/></section><CTA/>
+<Layout
+  title="AI-функции и автоматизация для онлайн-школ и бизнеса — SoloPreneur"
+  description="Проверка работ, ответы ученикам и родителям, заявки и документы — делает система. Проектирую и собираю AI-функции и автоматизацию на n8n. Первый результат за 3–6 недель.">
+
+<section class="hero wrap">
+  <div class="hero-copy">
+    <span class="eyebrow hero-eyebrow">AI-функции и автоматизация процессов</span>
+    <h1>Снимаю ручную работу<br/>с онлайн-школ<br/><span class="hero-last">и растущих команд.</span></h1>
+    <p>Проверка работ, ответы ученикам и родителям, заявки<br class="desktop"/> и документы — делает система. Первый результат<br class="desktop"/> за 3–6 недель.</p>
+    <div class="hero-actions">
+      <TgLink/>
+      <a class="text-link" href="/cases/">Смотреть кейсы <span>↓</span></a>
+    </div>
+    <p class="hero-sla">{contact.sla}</p>
+  </div>
+  <div class="hero-visual"><ProcessScheme/></div>
+</section>
+
+<div class="integration-strip"><div class="wrap">
+  <span>Работаю с вашим стеком</span>
+  <div class="integration-names">{stack.map(name => <span>{name}</span>)}</div>
+  <p class="integration-note">Если доступ к зарубежным сервисам закрыт — собираю на российских моделях и своём сервере. Резервный провайдер закладываю сразу, чтобы система не встала из-за одного отключения.</p>
+</div></div>
+
+<Audience/>
+
+<section class="section wrap" id="services">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Что я делаю</span>
+      <h2>Четыре направления.<br/>Один ответственный.</h2>
+    </div>
+    <p>Разбираю задачу, собираю решение<br class="desktop"/> и остаюсь на связи после запуска.</p>
+  </div>
+  <div class="service-grid">{services.map(s => (
+    <a class="service-card" href={`/services/${s.slug}/`}>
+      <div class="service-card-top"><span class="service-icon"><Icon name={s.icon} size={29}/></span><Icon size={24}/></div>
+      <h3>{s.short}</h3>
+      <p>{s.tag}</p>
+      <div class="service-card-bottom"><span>{s.time}</span><span>Подробнее</span></div>
+    </a>
+  ))}</div>
+</section>
+
+<section class="section case-section wrap">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Из практики</span>
+      <h2>Три системы,<br/>которые работают сейчас.</h2>
+    </div>
+    <a class="text-link" href="/cases/">Все кейсы <Icon size={18}/></a>
+  </div>
+  <div class="featured-cases">{featured.map((c, i) => (
+    <a class:list={['feature-case', {'feature-large': i === 0}]} href={`/cases/${c.slug}/`}>
+      <div class="feature-flow" aria-hidden="true">{c.flow.map((label, j) => (
+        <>{j > 0 && <span class="feature-arrow">→</span>}<span class="feature-node">{label}</span></>
+      ))}</div>
+      <div class="case-info">
+        <div class="case-tags"><span>{c.category}</span><span>{c.industry}</span></div>
+        <h3>{c.title}</h3>
+        <p>{c.summary}</p>
+        <span class="case-link">Смотреть кейс <Icon size={19}/></span>
+      </div>
+    </a>
+  ))}</div>
+</section>
+
+<section class="section wrap">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Чем могу подтвердить</span>
+      <h2>Цифры и отзывы.</h2>
+    </div>
+    <p>Здесь пока пустые места — заполняю только тем,<br class="desktop"/> что клиент разрешил показывать.</p>
+  </div>
+  <Stats/>
+  <div class="trust-quotes"><Testimonials/></div>
+</section>
+
+<section class="section approach-section"><div class="wrap approach-grid">
+  <div>
+    <span class="eyebrow">Лично отвечаю за результат</span>
+    <h2>Один контакт.<br/>Весь путь<br/>до запуска.</h2>
+    <p class="approach-intro">Инженерное образование, затем маркетинг, теперь автоматизация и AI. Считаю процесс как конструкцию: где нагрузка, где откажет, что делать, когда откажет.</p>
+    <a class="text-link" href="/contacts/">Познакомимся <Icon size={18}/></a>
+  </div>
+  <div class="process-list">{process.map(([title, text], i) => (
+    <div class="process-item"><span class="process-number">0{i+1}</span><div><h3>{title}</h3><p>{text}</p></div></div>
+  ))}</div>
+</div></section>
+
+<section class="section wrap faq-section">
+  <div>
+    <span class="eyebrow">До первого сообщения</span>
+    <h2>По делу.<br/>И заранее.</h2>
+    <p>Что обычно спрашивают<br/>перед началом работы.</p>
+  </div>
+  <FAQ items={generalFaq}/>
+</section>
+
+<CTA/>
 </Layout>
+
+<style>
+.hero-sla{margin-top:22px;font-size:14px;color:var(--muted);max-width:430px}
+.integration-note{max-width:760px;margin:20px 0 0;font-size:14px;line-height:1.6;color:var(--muted)}
+.trust-quotes{margin-top:14px}
+.feature-flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:26px 28px;border-bottom:1px solid var(--line)}
+.feature-node{font-size:13px;color:var(--text);background:var(--surface-2);border:1px solid var(--line);border-radius:7px;padding:7px 12px}
+.feature-arrow{color:var(--muted);font-size:13px}
+@media(max-width:760px){
+  .hero-sla{margin-top:18px;font-size:13px}
+  .feature-flow{padding:20px 20px}
+  .feature-node{font-size:12px;padding:6px 10px}
+}
+</style>

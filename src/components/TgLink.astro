@@ -1,0 +1,8 @@
+---
+import Icon from './Icon.astro';
+import {contact, analytics} from '../data/config';
+interface Props { variant?: 'button'|'dark'|'text'; label?: string; icon?: string; size?: number; class?: string; }
+const {variant='button', label=contact.label, icon='arrow', size=19, class:extra=''} = Astro.props;
+const cls = variant === 'text' ? 'text-link' : variant === 'dark' ? 'button button-dark' : 'button';
+---
+<a class={`${cls} ${extra}`.trim()} href={contact.telegram} target="_blank" rel="noopener noreferrer" data-goal={analytics.goal}>{label} <Icon name={icon} size={size}/></a>

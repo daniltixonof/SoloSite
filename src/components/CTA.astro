@@ -1,5 +1,13 @@
 ---
-import Icon from './Icon.astro';
-import {site} from '../data/site';
+import TgLink from './TgLink.astro';
+import {contact} from '../data/config';
 ---
-<section class="cta section wrap"><div class="cta-inner"><div><span class="eyebrow">Начнём с вашей задачи</span><h2>Что можно<br/>снять с ваших плеч?</h2><p>Расскажите, какой процесс отнимает время.<br class="desktop"/> Предложу, с чего начать автоматизацию.</p></div><a class="button button-dark" href={site.telegram} target="_blank" rel="noopener noreferrer">Обсудить в Telegram <Icon name="telegram" size={21}/></a></div></section>
+<section class="cta section wrap"><div class="cta-inner"><div><span class="eyebrow">С чего начать</span><h2>Разберём вашу задачу<br/>за 30 минут.</h2><p>Опишите процесс, который отнимает больше всего времени.<br class="desktop"/> Скажу, что из этого решается, за какой срок и сколько будет стоить.</p></div><div class="cta-action"><TgLink variant="dark" label={contact.labelTelegram} icon="telegram" size={21}/><p class="cta-sla">{contact.sla}</p></div></div></section>
+<style>
+.cta-action{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+.cta-sla{margin:0;font-size:14px;line-height:1.45;color:#0b0c0cb0;text-align:right;max-width:260px}
+@media(max-width:760px){
+  .cta-action{align-items:flex-start}
+  .cta-sla{text-align:left;max-width:none}
+}
+</style>

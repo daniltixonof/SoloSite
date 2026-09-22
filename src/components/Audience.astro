@@ -1,0 +1,56 @@
+---
+const segments = [
+  {
+    title: 'Онлайн-школа и образовательный продукт',
+    lead: 'Учеников больше, а проверяют и отвечают те же люди.',
+    pains: [
+      'Методисты проверяют работы вручную, ответ ученик ждёт до трёх дней',
+      'Родители пишут одно и то же в личку, отвечает администратор',
+      'Качество уроков никто не смотрит — выборочно и по жалобам',
+      'Доступы и оплаты сверяют руками по таблицам'
+    ]
+  },
+  {
+    title: 'Компания, где процесс идёт руками',
+    lead: 'От 10 до 100 человек, и часть дня уходит на перенос данных.',
+    pains: [
+      'Заявки приходят в чаты и теряются между людьми',
+      'Документы собирают и заполняют по шаблону вручную',
+      'Поддержка отвечает на одни и те же вопросы',
+      'Отчёт собирают из нескольких таблиц к понедельнику'
+    ]
+  }
+];
+---
+<section class="section wrap" id="audience">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Для кого</span>
+      <h2>Две ситуации,<br/>с которыми ко мне приходят.</h2>
+    </div>
+    <p>Если узнали свою — дальше по сайту есть кейсы, где это уже решено.</p>
+  </div>
+  <div class="audience-grid">
+    {segments.map(seg => (
+      <article class="audience-card">
+        <h3>{seg.title}</h3>
+        <p class="audience-lead">{seg.lead}</p>
+        <ul>{seg.pains.map(p => <li>{p}</li>)}</ul>
+      </article>
+    ))}
+  </div>
+</section>
+<style>
+.audience-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:46px}
+.audience-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:34px 32px}
+.audience-card h3{font-size:25px;margin:0 0 10px}
+.audience-lead{color:var(--accent);margin:0 0 24px;font-size:16px}
+.audience-card ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.audience-card li{position:relative;padding-left:24px;color:var(--muted);line-height:1.5;text-wrap:pretty}
+.audience-card li::before{content:'';position:absolute;left:2px;top:9px;width:9px;height:1px;background:var(--accent)}
+@media(max-width:860px){
+  .audience-grid{grid-template-columns:1fr;gap:12px;margin-top:32px}
+  .audience-card{padding:26px 22px}
+  .audience-card h3{font-size:21px}
+}
+</style>

@@ -1,0 +1,27 @@
+---
+import Mark from './Mark.astro';
+import {testimonials} from '../data/testimonials';
+---
+<div class="quotes">
+  {testimonials.map(t => (
+    <figure class="quote">
+      <blockquote><Mark text={t.text}/></blockquote>
+      <figcaption>
+        <strong><Mark text={t.name}/></strong>
+        <span><Mark text={t.role}/></span>
+      </figcaption>
+    </figure>
+  ))}
+</div>
+<style>
+.quotes{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.quote{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;gap:20px}
+.quote blockquote{margin:0;font-size:17px;line-height:1.55;color:var(--text);text-wrap:pretty}
+.quote figcaption{display:grid;gap:4px;padding-top:18px;border-top:1px solid var(--line)}
+.quote figcaption strong{font-weight:550;font-size:15px}
+.quote figcaption span{color:var(--muted);font-size:14px}
+@media(max-width:860px){
+  .quotes{grid-template-columns:1fr;gap:10px}
+  .quote{padding:24px 20px}
+}
+</style>

@@ -1,0 +1,23 @@
+---
+import Mark from './Mark.astro';
+import {stats} from '../data/config';
+---
+<div class="stats">
+  {stats.map(s => (
+    <div class="stat">
+      <strong><Mark text={s.value}/></strong>
+      <span>{s.label}</span>
+    </div>
+  ))}
+</div>
+<style>
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px 26px}
+.stat strong{display:block;font-size:34px;font-weight:550;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1;margin-bottom:10px}
+.stat span{color:var(--muted);font-size:15px;line-height:1.4}
+@media(max-width:860px){
+  .stats{grid-template-columns:1fr;gap:10px}
+  .stat{padding:22px 20px}
+  .stat strong{font-size:27px}
+}
+</style>
