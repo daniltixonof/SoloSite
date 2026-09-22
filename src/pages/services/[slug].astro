@@ -21,6 +21,7 @@ const related = s.caseSlugs
   title={`${s.title} — SoloPreneur`}
   description={s.intro}
   breadcrumbs={[{name:'Услуги',url:'/services/'},{name:s.short,url:`/services/${s.slug}/`}]}
+  faq={s.faq}
   schema={{
     '@type':'Service', name: s.title, description: s.intro,
     provider: {'@id': site.origin + '/#studio'},

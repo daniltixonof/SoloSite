@@ -18,7 +18,7 @@ const next = pool[(pool.findIndex(c => c.slug === item.slug) + 1 + pool.length) 
 const hidden = item.depth === 'brief' && item.hidden === true;
 ---
 <Layout
-  title={`${item.title} — кейс SoloPreneur`}
+  title={`${item.title} — SoloPreneur`}
   description={item.summary}
   noindex={hidden}
   breadcrumbs={[{name:'Кейсы',url:'/cases/'},{name:item.category,url:`/cases/${item.slug}/`}]}>
