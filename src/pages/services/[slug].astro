@@ -1,4 +1,5 @@
 ---
+import {u} from '../../lib/url';
 import Layout from '../../layouts/Layout.astro';
 import Icon from '../../components/Icon.astro';
 import CTA from '../../components/CTA.astro';
@@ -20,7 +21,7 @@ const related = s.caseSlugs
 <Layout
   title={`${s.title} — SoloPreneur`}
   description={s.intro}
-  breadcrumbs={[{name:'Услуги',url:'/services/'},{name:s.short,url:`/services/${s.slug}/`}]}
+  breadcrumbs={[{name:'Услуги',url:u('/services/')},{name:s.short,url:u(`/services/${s.slug}/`)}]}
   faq={s.faq}
   schema={{
     '@type':'Service', name: s.title, description: s.intro,
@@ -94,10 +95,10 @@ const related = s.caseSlugs
   <section class="wrap section" id="examples">
     <div class="section-heading">
       <div><span class="eyebrow">Уже в практике</span><h2>Как это выглядит<br/>в работе.</h2></div>
-      <a class="text-link" href="/cases/">Все кейсы <Icon size={18}/></a>
+      <a class="text-link" href={u('/cases/')}>Все кейсы <Icon size={18}/></a>
     </div>
     <div class="related-grid">{related.map(c => (
-      <a class="related-card" href={`/cases/${c.slug}/`}>
+      <a class="related-card" href={u(`/cases/${c.slug}/`)}>
         <span class="eyebrow">{c.category}</span>
         <h3>{c.title}</h3>
         <p>{c.summary}</p>

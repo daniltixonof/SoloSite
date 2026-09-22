@@ -1,4 +1,5 @@
 ---
+import {u} from '../lib/url';
 import Icon from './Icon.astro';
 import Mark from './Mark.astro';
 import {isFull, type Case} from '../data/cases';
@@ -6,7 +7,7 @@ interface Props { item: Case; }
 const {item} = Astro.props;
 const proof = isFull(item) ? item.metrics[0] : undefined;
 ---
-<a class="case-tile" href={`/cases/${item.slug}/`} data-category={item.category} style={`--case-color:${item.color}`}>
+<a class="case-tile" href={u(`/cases/${item.slug}/`)} data-category={item.category} style={`--case-color:${item.color}`}>
   <div class="case-tile-art" aria-hidden="true">
     <div class="art-flow">
       <span class="art-node">{item.symbol}</span>

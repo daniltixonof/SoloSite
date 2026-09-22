@@ -1,4 +1,5 @@
 ---
+import {u} from '../../lib/url';
 import Layout from '../../layouts/Layout.astro';
 import Icon from '../../components/Icon.astro';
 import CTA from '../../components/CTA.astro';
@@ -8,7 +9,7 @@ import {pricing, rub} from '../../data/config';
 <Layout
   title="Услуги: AI-функции и автоматизация — SoloPreneur"
   description={`Аудит процессов, AI-модуль для онлайн-школы, ассистент по документам, сквозные процессы, Telegram-боты и первая версия продукта. Типовой проект от ${rub(pricing.projectFrom)}.`}
-  breadcrumbs={[{name:'Услуги',url:'/services/'}]}>
+  breadcrumbs={[{name:'Услуги',url:u('/services/')}]}>
 
 <section class="wrap page-hero">
   <span class="eyebrow">Услуги</span>
@@ -18,7 +19,7 @@ import {pricing, rub} from '../../data/config';
 
 <section class="wrap service-rows">
   {services.map(s => (
-    <a class:list={['service-row', {entry: s.kind === 'entry'}]} href={`/services/${s.slug}/`}>
+    <a class:list={['service-row', {entry: s.kind === 'entry'}]} href={u(`/services/${s.slug}/`)}>
       <div class="service-row-main">
         <span class="service-icon"><Icon name={s.icon} size={26}/></span>
         <div>

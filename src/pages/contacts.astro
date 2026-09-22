@@ -1,4 +1,5 @@
 ---
+import {u} from '../lib/url';
 import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import TgLink from '../components/TgLink.astro';
@@ -13,7 +14,7 @@ const topics = [
 <Layout
   title="Контакты — обсудить AI-функции и автоматизацию — SoloPreneur"
   description="Напишите Данилу Тихонову в Telegram @Tikhonov_D. Первый разговор — 30 минут, бесплатно. Разберём процесс и определим, что автоматизировать первым."
-  breadcrumbs={[{name:'Контакты',url:'/contacts/'}]}>
+  breadcrumbs={[{name:'Контакты',url:u('/contacts/')}]}>
 
 <section class="wrap page-hero">
   <span class="eyebrow">Контакты</span>

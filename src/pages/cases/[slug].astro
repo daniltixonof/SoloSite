@@ -1,4 +1,5 @@
 ---
+import {u} from '../../lib/url';
 import Layout from '../../layouts/Layout.astro';
 import CTA from '../../components/CTA.astro';
 import Icon from '../../components/Icon.astro';
@@ -21,7 +22,7 @@ const hidden = item.depth === 'brief' && item.hidden === true;
   title={`${item.title} — SoloPreneur`}
   description={item.summary}
   noindex={hidden}
-  breadcrumbs={[{name:'Кейсы',url:'/cases/'},{name:item.category,url:`/cases/${item.slug}/`}]}>
+  breadcrumbs={[{name:'Кейсы',url:u('/cases/')},{name:item.category,url:u(`/cases/${item.slug}/`)}]}>
 
 <section class="wrap page-hero case-hero">
   <div class="case-tags"><span>{item.category}</span><span>{item.industry}</span></div>
@@ -75,7 +76,7 @@ const hidden = item.depth === 'brief' && item.hidden === true;
   <section class="wrap content-section split-section">
     <h2>Коротко</h2>
     <div class="prose">
-      <p>Этот проект описан одной строкой. Подробные разборы — в <a href="/cases/">кейсах с цифрами</a>.</p>
+      <p>Этот проект описан одной строкой. Подробные разборы — в <a href={u('/cases/')}>кейсах с цифрами</a>.</p>
     </div>
   </section>
 )}
@@ -93,7 +94,7 @@ const hidden = item.depth === 'brief' && item.hidden === true;
 <section class="wrap section">
   <div class="related-grid">
     {service && (
-      <a class="related-card" href={`/services/${service.slug}/`}>
+      <a class="related-card" href={u(`/services/${service.slug}/`)}>
         <span class="eyebrow">Для похожей задачи</span>
         <h3>{service.title}</h3>
         <p>Состав работ, этапы и стоимость.</p>
@@ -101,7 +102,7 @@ const hidden = item.depth === 'brief' && item.hidden === true;
       </a>
     )}
     {next && (
-      <a class="related-card" href={`/cases/${next.slug}/`}>
+      <a class="related-card" href={u(`/cases/${next.slug}/`)}>
         <span class="eyebrow">Следующий проект</span>
         <h3>{next.title}</h3>
         <p>{next.summary}</p>

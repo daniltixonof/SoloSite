@@ -1,4 +1,5 @@
 ---
+import {u} from '../../lib/url';
 import Layout from '../../layouts/Layout.astro';
 import Icon from '../../components/Icon.astro';
 import CTA from '../../components/CTA.astro';
@@ -69,7 +70,7 @@ const steps = [
 <Layout
   title="Обо мне: Данил Тихонов — автоматизация и AI — SoloPreneur"
   description="Инженерное образование, затем маркетинг, теперь автоматизация и AI. Процесс считаю как конструкцию, отказы закладываю заранее, объясняю без жаргона."
-  breadcrumbs={[{name:'Обо мне',url:'/about/'}]}
+  breadcrumbs={[{name:'Обо мне',url:u('/about/')}]}
   schema={{
     '@type':'Person', name:'Данил Тихонов', url: site.origin + '/about/',
     jobTitle:'Специалист по автоматизации процессов и AI-функциям',
@@ -142,13 +143,13 @@ const steps = [
 
 <section class="wrap section">
   <div class="related-grid">
-    <a class="related-card" href="/cases/">
+    <a class="related-card" href={u('/cases/')}>
       <span class="eyebrow">Что уже работает</span>
       <h3>Кейсы с разбором</h3>
       <p>Что было до, что построено и что изменилось.</p>
       <span class="case-link">Смотреть кейсы <Icon size={18}/></span>
     </a>
-    <a class="related-card" href="/services/process-audit/">
+    <a class="related-card" href={u('/services/process-audit/')}>
       <span class="eyebrow">С чего начать</span>
       <h3>Аудит процессов</h3>
       <p>Две недели, карта процессов, расчёт эффекта и смета.</p>

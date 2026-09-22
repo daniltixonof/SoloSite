@@ -1,4 +1,5 @@
 ---
+import {u} from '../../lib/url';
 import Layout from '../../layouts/Layout.astro';
 import CaseCard from '../../components/CaseCard.astro';
 import CTA from '../../components/CTA.astro';
@@ -9,7 +10,7 @@ const categories = ['Все проекты', ...usedCategories];
 <Layout
   title="Кейсы: было и стало в цифрах — SoloPreneur"
   description="Разборы проектов: что было до, что построено и что изменилось. Онлайн-школы, клубы, поддержка мероприятий, работа с документами и процессы компаний."
-  breadcrumbs={[{name:'Кейсы',url:'/cases/'}]}>
+  breadcrumbs={[{name:'Кейсы',url:u('/cases/')}]}>
 
 <section class="wrap page-hero">
   <span class="eyebrow">Кейсы</span>
@@ -38,7 +39,7 @@ const categories = ['Все проекты', ...usedCategories];
   <ul class="more-list">
     {briefCases.map(c => (
       <li>
-        <a href={`/cases/${c.slug}/`}>
+        <a href={u(`/cases/${c.slug}/`)}>
           <span class="more-title">{c.title}</span>
           <span class="more-summary">{c.summary}</span>
           <span class="more-tag">{c.category}<Icon size={15}/></span>

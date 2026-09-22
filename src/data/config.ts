@@ -4,7 +4,7 @@
 export const brand = {
   name: 'SoloPreneur',
   person: 'Данил Тихонов',
-  origin: 'https://solopreneur-studio.danil-tix.chatgpt.site'
+  origin: 'https://daniltixonof.github.io'
 };
 
 /** Один адрес для всех призывов к действию на сайте. */
