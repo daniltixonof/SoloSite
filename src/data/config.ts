@@ -4,7 +4,8 @@
 export const brand = {
   name: 'SoloPreneur',
   person: 'Данил Тихонов',
-  origin: 'https://daniltixonof.github.io'
+  // Подставляется из astro.config.mjs: на Vercel — рабочий домен, локально — localhost.
+  origin: import.meta.env.SITE ?? 'http://localhost:4321'
 };
 
 /** Один адрес для всех призывов к действию на сайте. */
