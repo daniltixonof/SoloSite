@@ -1,0 +1,34 @@
+---
+import Mark from './Mark.astro';
+import type {Metric} from '../data/cases';
+interface Props { items: Metric[]; note?: string; }
+const {items, note} = Astro.props;
+---
+<div class="metrics">
+  {items.map(m => (
+    <div class="metric-row">
+      <span class="metric-label">{m.label}</span>
+      <div class="metric-pair">
+        <span class="metric-before"><Mark text={m.before}/></span>
+        <span class="metric-sign" aria-hidden="true">→</span>
+        <span class="metric-after"><Mark text={m.after}/></span>
+      </div>
+    </div>
+  ))}
+</div>
+{note && <p class="metrics-note">{note}</p>}
+<style>
+.metrics{display:grid;gap:12px}
+.metric-row{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+.metric-label{display:block;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.metric-pair{display:flex;align-items:baseline;flex-wrap:wrap;gap:12px;font-size:17px;line-height:1.4}
+.metric-before{color:var(--muted);text-wrap:pretty}
+.metric-sign{color:var(--accent);flex:none}
+.metric-after{color:var(--text);font-weight:550;text-wrap:pretty}
+.metrics-note{margin:16px 2px 0;font-size:14px;color:var(--muted)}
+@media(max-width:760px){
+  .metric-row{padding:18px 18px}
+  .metric-pair{font-size:16px;gap:8px}
+  .metric-label{font-size:12px;margin-bottom:11px}
+}
+</style>

@@ -1,6 +1,36 @@
 ---
-import Icon from './Icon.astro';import type {Case} from '../data/cases';
-interface Props { item:Case; }
-const {item}=Astro.props;
+import Icon from './Icon.astro';
+import Mark from './Mark.astro';
+import {isFull, type Case} from '../data/cases';
+interface Props { item: Case; }
+const {item} = Astro.props;
+const proof = isFull(item) ? item.metrics[0] : undefined;
 ---
-<a class="case-tile" href={`/cases/${item.slug}/`} data-category={item.category} style={`--case-color:${item.color}`}><div class="case-tile-art" aria-hidden="true"><div class="art-flow"><span class="art-node">{item.symbol}</span><span class="art-connector">→</span><span class="art-node"><Icon name="spark" size={26}/></span><span class="art-connector">→</span><span class="art-node"><Icon name="check" size={25}/></span></div></div><div class="case-tile-copy"><div class="case-tags"><span>{item.category}</span></div><h2>{item.title}</h2><p>{item.summary}</p><span class="case-link">Разобрать кейс <Icon size={18}/></span></div></a>
+<a class="case-tile" href={`/cases/${item.slug}/`} data-category={item.category} style={`--case-color:${item.color}`}>
+  <div class="case-tile-art" aria-hidden="true">
+    <div class="art-flow">
+      <span class="art-node">{item.symbol}</span>
+      <span class="art-connector">→</span>
+      <span class="art-node"><Icon name="spark" size={26}/></span>
+      <span class="art-connector">→</span>
+      <span class="art-node"><Icon name="check" size={25}/></span>
+    </div>
+  </div>
+  <div class="case-tile-copy">
+    <div class="case-tags"><span>{item.category}</span></div>
+    <h2>{item.title}</h2>
+    <p>{item.summary}</p>
+    {proof && (
+      <p class="case-proof">
+        <span class="case-proof-label">{proof.label}</span>
+        <span class="case-proof-value"><Mark text={proof.after}/></span>
+      </p>
+    )}
+    <span class="case-link">Разобрать кейс <Icon size={18}/></span>
+  </div>
+</a>
+<style>
+.case-proof{margin:18px 0 0;padding-top:16px;border-top:1px solid var(--line);display:grid;gap:5px}
+.case-proof-label{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.case-proof-value{font-size:15px;line-height:1.4;color:var(--text);font-weight:550;text-wrap:pretty}
+</style>

@@ -1,6 +1,115 @@
 ---
-import Layout from '../../layouts/Layout.astro';import CTA from '../../components/CTA.astro';import Icon from '../../components/Icon.astro';import {cases} from '../../data/cases';import {services} from '../../data/site';
-export function getStaticPaths(){return cases.map(item=>({params:{slug:item.slug},props:{item}}));}
-const {item:c}=Astro.props;const service=services.find(s=>s.slug===c.service)!;const next=cases[(cases.findIndex(i=>i.slug===c.slug)+1)%cases.length];
+import Layout from '../../layouts/Layout.astro';
+import CTA from '../../components/CTA.astro';
+import Icon from '../../components/Icon.astro';
+import Metrics from '../../components/Metrics.astro';
+import TgLink from '../../components/TgLink.astro';
+import {cases, listedCases, isFull, type Case} from '../../data/cases';
+import {services} from '../../data/site';
+
+export function getStaticPaths() {
+  return cases.map(item => ({params: {slug: item.slug}, props: {item}}));
+}
+
+const {item} = Astro.props as {item: Case};
+const service = services.find(s => s.slug === item.service);
+const pool = listedCases.filter(c => c.slug !== item.slug);
+const next = pool[(pool.findIndex(c => c.slug === item.slug) + 1 + pool.length) % pool.length] ?? pool[0];
+const hidden = item.depth === 'brief' && item.hidden === true;
 ---
-<Layout title={`${c.title} — кейс SoloPreneur`} description={c.summary} breadcrumbs={[{name:'Кейсы',url:'/cases/'},{name:c.industry,url:`/cases/${c.slug}/`}]}><section class="wrap page-hero"><div class="case-tags"><span>{c.category}</span><span>{c.industry}</span></div><h1>{c.title}</h1><p class="lead">{c.summary}</p><div class="page-actions">{c.stack.map(s=><span class="pill">{s}</span>)}</div></section><div class="wrap"><div class="case-banner">{c.flow.map((label,i)=><>{i>0&&<span class="banner-arrow" aria-hidden="true">→</span>}<div class="banner-node">{label}</div></>)}</div><p class="case-banner-label">Упрощённая схема решения</p></div><section class="wrap content-section split-section"><h2>Задача</h2><div class="prose"><p>{c.problem}</p></div></section><section class="wrap content-section split-section"><h2>Как устроено<br/>решение</h2><div class="process-list">{c.solution.map((s,i)=><div class="process-item"><span class="process-number">0{i+1}</span><p>{s}</p></div>)}</div></section><section class="wrap content-section split-section"><h2>Что изменилось</h2><div class="result-box"><p>{c.result}</p></div></section><section class="wrap section"><div class="related-grid"><a class="related-card" href={`/services/${service.slug}/`}><span class="eyebrow">Для похожей задачи</span><h3>{service.title}</h3><p>Состав работ, этапы и стоимость.</p><span class="case-link">Перейти к услуге <Icon size={18}/></span></a><a class="related-card" href={`/cases/${next.slug}/`}><span class="eyebrow">Следующий проект</span><h3>{next.title}</h3><p>{next.summary}</p><span class="case-link">Смотреть кейс <Icon size={18}/></span></a></div></section><CTA/></Layout>
+<Layout
+  title={`${item.title} — кейс SoloPreneur`}
+  description={item.summary}
+  noindex={hidden}
+  breadcrumbs={[{name:'Кейсы',url:'/cases/'},{name:item.category,url:`/cases/${item.slug}/`}]}>
+
+<section class="wrap page-hero case-hero">
+  <div class="case-tags"><span>{item.category}</span><span>{item.industry}</span></div>
+  {isFull(item)
+    ? <h1>{item.headline.map((line, i) => <>{i > 0 && <br/>}{line}</>)}</h1>
+    : <h1>{item.title}</h1>}
+  <p class="lead">{item.summary}</p>
+  {isFull(item) && <p class="case-audience"><span>Для кого</span>{item.audience}</p>}
+  {isFull(item) && <div class="page-actions">{item.stack.map(s => <span class="pill">{s}</span>)}</div>}
+</section>
+
+{isFull(item) && (
+  <div class="wrap">
+    <div class="case-banner">{item.flow.map((label, i) => (
+      <>{i > 0 && <span class="banner-arrow" aria-hidden="true">→</span>}<div class="banner-node">{label}</div></>
+    ))}</div>
+    <p class="case-banner-label">Упрощённая схема решения</p>
+  </div>
+)}
+
+{isFull(item) && (
+  <>
+    <section class="wrap content-section split-section">
+      <h2>Было</h2>
+      <div class="prose"><p>{item.before}</p></div>
+    </section>
+
+    <section class="wrap content-section split-section">
+      <h2>Что сделали</h2>
+      <div>
+        <div class="process-list">{item.actions.map((a, i) => (
+          <div class="process-item"><span class="process-number">{String(i+1).padStart(2,'0')}</span><p>{a}</p></div>
+        ))}</div>
+        <p class="under-hood">{item.underHood}</p>
+      </div>
+    </section>
+
+    <section class="wrap content-section split-section">
+      <h2>Стало</h2>
+      <Metrics items={item.metrics} note={item.metricsNote}/>
+    </section>
+
+    <section class="wrap content-section split-section">
+      <h2>Что дальше</h2>
+      <div class="prose"><p>{item.next}</p></div>
+    </section>
+  </>
+)}
+
+{!isFull(item) && (
+  <section class="wrap content-section split-section">
+    <h2>Коротко</h2>
+    <div class="prose">
+      <p>Этот проект описан одной строкой. Подробные разборы — в <a href="/cases/">кейсах с цифрами</a>.</p>
+    </div>
+  </section>
+)}
+
+<section class="wrap section case-cta-row">
+  <div class="case-cta">
+    <div>
+      <h2>Похожая задача — обсудим</h2>
+      <p>Расскажите, как процесс идёт сейчас. Скажу, что из этого решается и за какой срок.</p>
+    </div>
+    <TgLink/>
+  </div>
+</section>
+
+<section class="wrap section">
+  <div class="related-grid">
+    {service && (
+      <a class="related-card" href={`/services/${service.slug}/`}>
+        <span class="eyebrow">Для похожей задачи</span>
+        <h3>{service.title}</h3>
+        <p>Состав работ, этапы и стоимость.</p>
+        <span class="case-link">Перейти к услуге <Icon size={18}/></span>
+      </a>
+    )}
+    {next && (
+      <a class="related-card" href={`/cases/${next.slug}/`}>
+        <span class="eyebrow">Следующий проект</span>
+        <h3>{next.title}</h3>
+        <p>{next.summary}</p>
+        <span class="case-link">Смотреть кейс <Icon size={18}/></span>
+      </a>
+    )}
+  </div>
+</section>
+
+<CTA/>
+</Layout>

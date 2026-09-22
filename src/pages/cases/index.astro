@@ -1,18 +1,77 @@
 ---
-import Layout from '../../layouts/Layout.astro';import CaseCard from '../../components/CaseCard.astro';import CTA from '../../components/CTA.astro';import {cases} from '../../data/cases';
-const categories=['Все проекты',...new Set(cases.map(c=>c.category))];
+import Layout from '../../layouts/Layout.astro';
+import CaseCard from '../../components/CaseCard.astro';
+import CTA from '../../components/CTA.astro';
+import Icon from '../../components/Icon.astro';
+import {fullCases, briefCases, usedCategories} from '../../data/cases';
+const categories = ['Все проекты', ...usedCategories];
 ---
-<Layout title="Кейсы автоматизации, Telegram-ботов и AI — SoloPreneur" description="Портфолио SoloPreneur: автоматизация встреч, AI-ассистенты, Telegram-воронки, образовательные платформы и Mini Apps. Задачи, решения и устройство проектов." breadcrumbs={[{name:'Кейсы',url:'/cases/'}]}><section class="wrap page-hero"><span class="eyebrow">Портфолио</span><h1>От бизнес-задачи<br/>к работающей системе.</h1><p class="lead">Проекты на стыке автоматизации, AI и цифровых продуктов. В каждом — контекст, логика решения и то, что меняется в работе.</p></section><section class="wrap" style="padding-bottom:90px"><div class="filters" role="group" aria-label="Фильтр кейсов">{categories.map((category,i)=><button class="filter" data-filter={category} aria-pressed={i===0?'true':'false'}>{category}</button>)}</div><p class="case-count" aria-live="polite">Показано проектов: {cases.length}</p><div class="case-grid">{cases.map(item=><CaseCard item={item}/>)}</div></section><CTA/><script>
-const filters=document.querySelectorAll<HTMLButtonElement>('[data-filter]');
-const cards=document.querySelectorAll<HTMLElement>('[data-category]');
-function applyFilter(category:string,updateUrl=false){
- if(![...filters].some(b=>b.dataset.filter===category))category='Все проекты';
- filters.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter===category)));
- let count=0;cards.forEach(card=>{const show=category==='Все проекты'||card.dataset.category===category;card.hidden=!show;if(show)count++;});
- const status=document.querySelector('.case-count');if(status)status.textContent=`Показано проектов: ${count}`;
- if(updateUrl){const url=new URL(location.href);if(category==='Все проекты')url.searchParams.delete('category');else url.searchParams.set('category',category);history.pushState({},'',url);}
+<Layout
+  title="Кейсы: AI-функции для онлайн-школ и автоматизация процессов — SoloPreneur"
+  description="Разборы проектов: что было до, что построено и что изменилось. Онлайн-школы, клубы, поддержка мероприятий, работа с документами и процессы компаний."
+  breadcrumbs={[{name:'Кейсы',url:'/cases/'}]}>
+
+<section class="wrap page-hero">
+  <span class="eyebrow">Кейсы</span>
+  <h1>Что было до<br/>и что стало после.</h1>
+  <p class="lead">В каждом разборе — как процесс шёл раньше, что именно построено и какой результат получил клиент. Где цифра ещё не подтверждена, она отмечена, а не придумана.</p>
+</section>
+
+<section class="wrap" style="padding-bottom:70px">
+  <div class="filters" role="group" aria-label="Фильтр кейсов">
+    {categories.map((category, i) => (
+      <button class="filter" data-filter={category} aria-pressed={i === 0 ? 'true' : 'false'}>{category}</button>
+    ))}
+  </div>
+  <p class="case-count" aria-live="polite">Показано проектов: {fullCases.length}</p>
+  <div class="case-grid">{fullCases.map(item => <CaseCard item={item}/>)}</div>
+</section>
+
+<section class="wrap section more-projects">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Ещё проекты</span>
+      <h2>Коротко о том,<br/>что тоже работает.</h2>
+    </div>
+    <p>Эти проекты без подробного разбора.<br class="desktop"/> Если задача похожа — расскажу детали в разговоре.</p>
+  </div>
+  <ul class="more-list">
+    {briefCases.map(c => (
+      <li>
+        <a href={`/cases/${c.slug}/`}>
+          <span class="more-title">{c.title}</span>
+          <span class="more-summary">{c.summary}</span>
+          <span class="more-tag">{c.category}<Icon size={15}/></span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<CTA/>
+<script>
+const filters = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+const cards = document.querySelectorAll<HTMLElement>('.case-grid [data-category]');
+function applyFilter(category: string, updateUrl = false) {
+  if (![...filters].some(b => b.dataset.filter === category)) category = 'Все проекты';
+  filters.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === category)));
+  let count = 0;
+  cards.forEach(card => {
+    const show = category === 'Все проекты' || card.dataset.category === category;
+    card.hidden = !show;
+    if (show) count++;
+  });
+  const status = document.querySelector('.case-count');
+  if (status) status.textContent = `Показано проектов: ${count}`;
+  if (updateUrl) {
+    const url = new URL(location.href);
+    if (category === 'Все проекты') url.searchParams.delete('category');
+    else url.searchParams.set('category', category);
+    history.pushState({}, '', url);
+  }
 }
-filters.forEach(button=>button.addEventListener('click',()=>applyFilter(button.dataset.filter!,true)));
-applyFilter(new URL(location.href).searchParams.get('category')||'Все проекты');
-addEventListener('popstate',()=>applyFilter(new URL(location.href).searchParams.get('category')||'Все проекты'));
-</script></Layout>
+filters.forEach(button => button.addEventListener('click', () => applyFilter(button.dataset.filter!, true)));
+applyFilter(new URL(location.href).searchParams.get('category') || 'Все проекты');
+addEventListener('popstate', () => applyFilter(new URL(location.href).searchParams.get('category') || 'Все проекты'));
+</script>
+</Layout>

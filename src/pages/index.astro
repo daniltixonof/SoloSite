@@ -10,11 +10,7 @@ import Stats from '../components/Stats.astro';
 import Testimonials from '../components/Testimonials.astro';
 import {services, generalFaq} from '../data/site';
 import {contact} from '../data/config';
-import {cases} from '../data/cases';
-
-const featured = ['parent-school','tournament-platform','meeting-to-tasks']
-  .map(slug => cases.find(c => c.slug === slug))
-  .filter((c): c is NonNullable<typeof c> => Boolean(c));
+import {featuredCases} from '../data/cases';
 
 const stack = ['n8n','Telegram','Claude','OpenAI','YandexGPT','GigaChat','Supabase','Google Sheets','CRM и любой API'];
 
@@ -77,7 +73,7 @@ const process = [
     </div>
     <a class="text-link" href="/cases/">Все кейсы <Icon size={18}/></a>
   </div>
-  <div class="featured-cases">{featured.map((c, i) => (
+  <div class="featured-cases">{featuredCases.map((c, i) => (
     <a class:list={['feature-case', {'feature-large': i === 0}]} href={`/cases/${c.slug}/`}>
       <div class="feature-flow" aria-hidden="true">{c.flow.map((label, j) => (
         <>{j > 0 && <span class="feature-arrow">→</span>}<span class="feature-node">{label}</span></>
