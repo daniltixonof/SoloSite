@@ -1,4 +1,47 @@
 ---
-import Layout from '../../layouts/Layout.astro';import Icon from '../../components/Icon.astro';import CTA from '../../components/CTA.astro';import {services} from '../../data/site';
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import CTA from '../../components/CTA.astro';
+import {services} from '../../data/site';
+import {pricing, rub} from '../../data/config';
 ---
-<Layout title="Услуги: автоматизация, Telegram-боты, AI и MVP — SoloPreneur" description="Четыре направления SoloPreneur: автоматизация процессов от 25 000 ₽, Telegram-боты от 45 000 ₽, AI-ассистенты от 70 000 ₽, MVP от 120 000 ₽." breadcrumbs={[{name:'Услуги',url:'/services/'}]}><section class="wrap page-hero"><span class="eyebrow">Решения для вашей работы</span><h1>У задачи есть решение.<br/>Найдём подходящее.</h1><p class="lead">Бот для заявок, интеграция сервисов, ассистент по документам или первая версия продукта. Начнём с того, что даст пользу вашему бизнесу.</p></section><section class="wrap" aria-label="Направления работы">{services.map(s=><article class="service-row"><span class="service-icon"><Icon name={s.icon} size={34}/></span><div><h2><a href={`/services/${s.slug}/`}>{s.title}</a></h2><p>{s.intro}</p></div><div class="service-row-right"><strong>от {s.price} ₽</strong><span>{s.time}</span><a class="text-link" href={`/services/${s.slug}/`}>Подробнее <Icon size={19}/></a></div></article>)}</section><div class="section wrap"><p class="inline-note">Стоимость и сроки — ориентиры для стартового объёма. Конкретный состав работ и расходы на внешние сервисы согласуем после разбора задачи.</p></div><CTA/></Layout>
+<Layout
+  title="Услуги: AI-функции для онлайн-школ и автоматизация процессов — SoloPreneur"
+  description={`Аудит процессов, AI-модуль для онлайн-школы, ассистент по документам, сквозные процессы, Telegram-боты и первая версия продукта. Типовой проект от ${rub(pricing.projectFrom)}.`}
+  breadcrumbs={[{name:'Услуги',url:'/services/'}]}>
+
+<section class="wrap page-hero">
+  <span class="eyebrow">Услуги</span>
+  <h1>Начать можно с малого.<br/>И сразу увидеть эффект.</h1>
+  <p class="lead">Шесть направлений. Первое — аудит: две недели, карта процессов и смета, после которых понятно, что делать дальше. Остальные — работа по результату этого разбора.</p>
+</section>
+
+<section class="wrap service-rows">
+  {services.map(s => (
+    <a class:list={['service-row', {entry: s.kind === 'entry'}]} href={`/services/${s.slug}/`}>
+      <div class="service-row-main">
+        <span class="service-icon"><Icon name={s.icon} size={26}/></span>
+        <div>
+          <h2>{s.title}</h2>
+          <p>{s.intro}</p>
+        </div>
+      </div>
+      <div class="service-row-meta">
+        <span class="service-price">{s.typical}</span>
+        <span>{s.time}</span>
+        <span class="case-link">Подробнее <Icon size={17}/></span>
+      </div>
+    </a>
+  ))}
+</section>
+
+<section class="wrap section split-section">
+  <div><span class="eyebrow">Как считается стоимость</span><h2>Цена зависит<br/>от устройства задачи.</h2></div>
+  <div class="prose">
+    <p>Типовой проект начинается от {rub(pricing.projectFrom)}. Несколько ролей, сложные ветвления, перенос данных и нестандартные системы увеличивают объём — итоговую оценку фиксирую после разбора задачи.</p>
+    <p>{pricing.extras}</p>
+  </div>
+</section>
+
+<CTA/>
+</Layout>
