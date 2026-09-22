@@ -1,4 +1,42 @@
 ---
-import Layout from '../layouts/Layout.astro';import Icon from '../components/Icon.astro';import {site} from '../data/site';
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import TgLink from '../components/TgLink.astro';
+import {contact, analytics} from '../data/config';
+
+const topics = [
+  ['Чем занимаетесь', 'Продукт, аудитория, размер команды.'],
+  ['Как процесс идёт сейчас', 'Какие сервисы используете и где работа делается руками.'],
+  ['Что должно измениться', 'Какой результат нужен и есть ли ограничения по срокам.']
+];
 ---
-<Layout title="Обсудить автоматизацию и разработку — контакты SoloPreneur" description="Напишите Данилу Тихонову в Telegram @Tikhonov_D. Обсудим автоматизацию, Telegram-бота, AI-ассистента или MVP и определим первый этап работы." breadcrumbs={[{name:'Контакты',url:'/contacts/'}]}><section class="wrap page-hero"><span class="eyebrow">Напрямую со специалистом</span><h1>Начнём<br/>с разговора.</h1><p class="lead">Не обязательно знать, какой бот или сервис вам нужен. Расскажите, что сейчас занимает время и что хотелось бы изменить.</p></section><section class="wrap contact-grid"><div class="contact-panel"><span class="eyebrow">Данил Тихонов · SoloPreneur</span><h2>Я на связи в Telegram</h2><a class="contact-handle" href={site.telegram} target="_blank" rel="noopener noreferrer">{site.contact}<Icon size={26}/></a><p>Работаю удалённо. Сам разбираю задачу, предлагаю решение и веду проект до передачи.</p><a class="button" href={site.telegram} target="_blank" rel="noopener noreferrer">Написать в Telegram <Icon name="telegram" size={20}/></a></div><div><span class="eyebrow">Чтобы быстрее перейти к делу</span><h2 style="font-size:31px;margin-bottom:26px">О чём можно написать</h2><div class="process-list">{[['Чем занимается ваш бизнес','Продукт, аудитория и размер команды.'],['Как устроен процесс сейчас','Какие сервисы используете, где приходится делать работу вручную.'],['Какой результат вам нужен','Что должно измениться после запуска и есть ли ограничения по срокам.']].map(([t,d],i)=><div class="process-item"><span class="process-number">0{i+1}</span><div><h3>{t}</h3><p>{d}</p></div></div>)}</div><p class="inline-note">Можно начать с пары предложений. Дальше уточним детали вместе.</p></div></section></Layout>
+<Layout
+  title="Контакты — обсудить AI-функции и автоматизацию — SoloPreneur"
+  description="Напишите Данилу Тихонову в Telegram @Tikhonov_D. Первый разговор — 30 минут, бесплатно. Разберём процесс и определим, что автоматизировать первым."
+  breadcrumbs={[{name:'Контакты',url:'/contacts/'}]}>
+
+<section class="wrap page-hero">
+  <span class="eyebrow">Контакты</span>
+  <h1>Начнём<br/>с разговора.</h1>
+  <p class="lead">Не нужно заранее знать, какой бот или сервис вам нужен. Расскажите, что сейчас отнимает время, — разберёмся вместе.</p>
+</section>
+
+<section class="wrap contact-grid">
+  <div class="contact-panel">
+    <span class="eyebrow">Данил Тихонов · SoloPreneur</span>
+    <h2>Я на связи в Telegram</h2>
+    <a class="contact-handle" href={contact.telegram} target="_blank" rel="noopener noreferrer" data-goal={analytics.goal}>{contact.handle}<Icon size={26}/></a>
+    <p>Работаю удалённо. Сам разбираю задачу, предлагаю решение и веду проект до передачи.</p>
+    <TgLink label={contact.labelTelegram} icon="telegram" size={20}/>
+    <p class="contact-sla">{contact.sla}</p>
+  </div>
+  <div>
+    <span class="eyebrow">Чтобы быстрее перейти к делу</span>
+    <h2 class="contact-subhead">О чём написать</h2>
+    <div class="process-list">{topics.map(([title, text], i) => (
+      <div class="process-item"><span class="process-number">0{i+1}</span><div><h3>{title}</h3><p>{text}</p></div></div>
+    ))}</div>
+    <p class="inline-note">Хватит пары предложений. Детали уточним в разговоре.</p>
+  </div>
+</section>
+</Layout>

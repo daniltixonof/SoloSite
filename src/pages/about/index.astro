@@ -1,0 +1,161 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import CTA from '../../components/CTA.astro';
+import Stats from '../../components/Stats.astro';
+import Mark from '../../components/Mark.astro';
+import {site} from '../../data/config';
+
+const path = [
+  {
+    period: 'Сначала',
+    title: 'Строительное проектирование',
+    text: 'Инженерное образование и проектирование конструкций. Там нельзя спроектировать «примерно»: считаешь нагрузки, закладываешь запас и отвечаешь за то, что будет, когда что-то пойдёт не так.'
+  },
+  {
+    period: 'Потом',
+    title: 'Маркетинг и запуски',
+    text: 'Работа с продуктами и воронками: исследования аудитории, упаковка, реклама, продажи. Здесь стало видно, что мешает бизнесу расти — и что чаще всего это не реклама, а процесс внутри.'
+  },
+  {
+    period: 'Сейчас',
+    title: 'Автоматизация и AI',
+    text: 'Проектирую и собираю системы, которые снимают ручную работу: AI-функции внутри образовательных продуктов и сквозные процессы для компаний.'
+  }
+];
+
+const gives = [
+  {
+    title: 'Считаю процесс как конструкцию',
+    text: 'Смотрю, где узел нагружен, а где запас. Автоматизирую то, что даёт отдачу, а не то, что интереснее делать.'
+  },
+  {
+    title: 'Думаю про отказы заранее',
+    text: 'Система живёт дольше первой нештатной ситуации, только если сбои заложены в проект. Что будет при недоступном сервисе, неполных данных, закрытом доступе к модели — решаю до запуска, а не после.'
+  },
+  {
+    title: 'Объясняю без жаргона',
+    text: 'Вы должны понимать, что покупаете, и уметь объяснить это своей команде. Термины оставляю для строки «под капотом».'
+  }
+];
+
+const steps = [
+  {
+    title: 'Разбираю процесс',
+    text: 'Показываете, как работа идёт сейчас. Считаю, где уходит время и во что это обходится.',
+    get: 'Карту процесса и список мест, где теряется время',
+    stop: 'Можно остановиться здесь и делать дальше своими силами'
+  },
+  {
+    title: 'Фиксирую план и смету',
+    text: 'Состав работ, этапы, сроки и стоимость на бумаге. Без «уточним по ходу».',
+    get: 'Смету и план этапов с понятным результатом каждого',
+    stop: 'Можно остановиться и пойти с этой сметой к другому исполнителю'
+  },
+  {
+    title: 'Собираю и проверяю',
+    text: 'Показываю промежуточный результат. Проверяю не только рабочие сценарии, но и сбои.',
+    get: 'Работающую систему и отчёт о том, как она ведёт себя при отказах',
+    stop: 'Можно остановиться на первом этапе и оценить эффект до продолжения'
+  },
+  {
+    title: 'Передаю управление',
+    text: 'Исходники, доступы и инструкции остаются у вас. Показываю, где смотреть ошибки.',
+    get: 'Исходники, доступы, инструкции и описание устройства системы',
+    stop: 'Дальше — ваша команда или моё сопровождение, на ваш выбор'
+  }
+];
+---
+<Layout
+  title="Обо мне: Данил Тихонов — автоматизация и AI — SoloPreneur"
+  description="Инженерное образование, затем маркетинг, теперь автоматизация и AI. Как это влияет на работу: процесс считается как конструкция, отказы закладываются заранее, объяснения без жаргона."
+  breadcrumbs={[{name:'Обо мне',url:'/about/'}]}
+  schema={{
+    '@type':'Person', name:'Данил Тихонов', url: site.origin + '/about/',
+    jobTitle:'Специалист по автоматизации процессов и AI-функциям',
+    description:'Проектирует и собирает AI-функции для онлайн-школ и сквозные автоматизации для бизнеса.',
+    sameAs:[site.telegram]
+  }}>
+
+<section class="wrap page-hero about-hero">
+  <div>
+    <span class="eyebrow">Обо мне</span>
+    <h1>Данил Тихонов.<br/>Проектирую системы,<br/>которые работают<br/>без вас.</h1>
+    <p class="lead">Три профессии подряд — конструкции, маркетинг, автоматизация. Каждая следующая объясняла, чего не хватало в предыдущей.</p>
+  </div>
+  <figure class="about-photo">
+    <div class="photo-slot"><Mark text="[ЗАПОЛНИТЬ: фотография, путь к файлу в public]"/></div>
+    <figcaption>Работаю удалённо, на связи в рабочее время.</figcaption>
+  </figure>
+</section>
+
+<section class="wrap section">
+  <div class="section-heading">
+    <div><span class="eyebrow">Как я сюда пришёл</span><h2>Три профессии,<br/>одна логика.</h2></div>
+    <p>Не «всегда любил технологии».<br class="desktop"/> Скорее — всегда раздражала лишняя работа.</p>
+  </div>
+  <div class="path-grid">{path.map(p => (
+    <article class="path-card">
+      <span class="path-period">{p.period}</span>
+      <h3>{p.title}</h3>
+      <p>{p.text}</p>
+    </article>
+  ))}</div>
+</section>
+
+<section class="section approach-section"><div class="wrap">
+  <div class="section-heading">
+    <div><span class="eyebrow">Что это даёт вам</span><h2>Инженерная привычка<br/>в работе с процессами.</h2></div>
+  </div>
+  <div class="gives-grid">{gives.map(g => (
+    <article class="give-card"><h3>{g.title}</h3><p>{g.text}</p></article>
+  ))}</div>
+</div></section>
+
+<section class="wrap section">
+  <div class="section-heading">
+    <div><span class="eyebrow">Как работаю</span><h2>Четыре шага.<br/>Выйти можно на любом.</h2></div>
+    <p>Каждый этап заканчивается чем-то,<br class="desktop"/> что остаётся у вас, даже если мы не продолжим.</p>
+  </div>
+  <div class="steps-list">{steps.map((s, i) => (
+    <article class="step-row">
+      <span class="process-number">0{i+1}</span>
+      <div class="step-main">
+        <h3>{s.title}</h3>
+        <p>{s.text}</p>
+      </div>
+      <div class="step-side">
+        <p class="step-get"><span>Вы получаете</span>{s.get}</p>
+        <p class="step-stop"><span>Точка выхода</span>{s.stop}</p>
+      </div>
+    </article>
+  ))}</div>
+</section>
+
+<section class="wrap section">
+  <div class="section-heading">
+    <div><span class="eyebrow">В цифрах</span><h2>Сколько сделано.</h2></div>
+    <p>Заполняю только подтверждённым.<br class="desktop"/> Пустые места видно.</p>
+  </div>
+  <Stats/>
+</section>
+
+<section class="wrap section">
+  <div class="related-grid">
+    <a class="related-card" href="/cases/">
+      <span class="eyebrow">Что уже работает</span>
+      <h3>Кейсы с разбором</h3>
+      <p>Что было до, что построено и что изменилось.</p>
+      <span class="case-link">Смотреть кейсы <Icon size={18}/></span>
+    </a>
+    <a class="related-card" href="/services/process-audit/">
+      <span class="eyebrow">С чего начать</span>
+      <h3>Аудит процессов</h3>
+      <p>Две недели, карта процессов, расчёт эффекта и смета.</p>
+      <span class="case-link">Подробнее <Icon size={18}/></span>
+    </a>
+  </div>
+</section>
+
+<CTA/>
+</Layout>

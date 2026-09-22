@@ -68,3 +68,39 @@
   .service-row-main h2{font-size:20px}
   .package{padding:24px 20px}
 }
+.about-hero{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:start}
+.about-photo{margin:0;display:grid;gap:14px}
+.photo-slot{aspect-ratio:4/5;border:1px dashed var(--line);border-radius:18px;background:var(--surface);display:grid;place-items:center;padding:24px;text-align:center}
+.about-photo figcaption{font-size:13px;color:var(--muted);line-height:1.5}
+.path-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:46px}
+.path-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:30px 28px}
+.path-period{display:block;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.path-card h3{font-size:21px;margin:0 0 12px;line-height:1.25}
+.path-card p{margin:0;font-size:15px;line-height:1.6}
+.gives-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+.give-card{padding:0 24px 0 0}
+.give-card h3{font-size:19px;margin:0 0 12px;line-height:1.3}
+.give-card p{margin:0;font-size:15px;line-height:1.6}
+.steps-list{display:grid;gap:12px;margin-top:46px}
+.step-row{display:grid;grid-template-columns:auto 1.1fr .9fr;gap:28px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:30px 30px}
+.step-main h3{font-size:21px;margin:0 0 10px;line-height:1.25}
+.step-main p{margin:0;font-size:15px}
+.step-side{display:grid;gap:16px}
+.step-side p{margin:0;font-size:14px;line-height:1.5;color:var(--text)}
+.step-side span{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.step-stop{color:var(--muted)}
+.step-get span{color:var(--accent)}
+.contact-sla{margin:16px 0 0;font-size:14px;color:var(--muted);line-height:1.5}
+@media(max-width:1100px){
+  .path-grid,.gives-grid{grid-template-columns:1fr;gap:12px}
+  .give-card{padding:0}
+  .step-row{grid-template-columns:auto 1fr;gap:20px}
+  .step-side{grid-column:1/-1;padding-top:18px;border-top:1px solid var(--line)}
+}
+@media(max-width:860px){
+  .about-hero{grid-template-columns:1fr;gap:32px}
+  .photo-slot{aspect-ratio:3/2}
+  .path-card,.step-row{padding:24px 20px}
+  .step-row{grid-template-columns:1fr;gap:16px}
+}
+.contact-subhead{font-size:31px;margin-bottom:26px}
