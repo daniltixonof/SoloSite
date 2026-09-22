@@ -12,7 +12,7 @@ const chunks = splitMarkers(text);
     : <span class="mark-hidden">—<span hidden>{chunk.hint}</span></span>
 )}
 <style>
-.mark{display:inline-block;padding:1px 7px;border:1px dashed var(--accent);border-radius:5px;background:#f6ce4514;color:var(--accent);font-size:.88em;letter-spacing:0;white-space:nowrap;vertical-align:baseline}
+.mark{display:inline;padding:1px 7px;border:1px dashed var(--accent);border-radius:5px;background:#f6ce4514;color:var(--accent);font-size:.88em;letter-spacing:0;overflow-wrap:break-word;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .mark::before{content:'нужны данные · ';opacity:.6;font-size:.82em;text-transform:uppercase;letter-spacing:.04em}
 .mark-hidden{color:var(--muted)}
 </style>
